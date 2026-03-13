@@ -6,6 +6,12 @@ import Game from './components/game'
 function App() {
   const [start,setRestart] = useState('START')
   const [active, setActive] = useState(null)
+  const [userTurn, setUserTurn] = useState(false)
+  const [startBtn, setStartBtn] = useState(false)
+  const [sequence, setSequence] = useState([])
+  const [userStep, setUserStep] = useState(0)
+  const [score, setScore] = useState(0)
+  const [status, setStatus] = useState('Click Start!')
 
   const sequenceArray = () =>{
   let arr = []
@@ -15,10 +21,13 @@ function App() {
   return arr
 }
 
-const startSequence = ()=>{
+const previewSequence = ()=>{
+  setUserTurn(false)
+  setStartBtn(true)
   setRestart('RESTART')
    const seq = sequenceArray()
-  console.log(seq);
+   setSequence(seq)
+   console.log(seq);
   
    let i = 0
 
@@ -32,17 +41,38 @@ const startSequence = ()=>{
    
    if(i===seq.length){
     clearInterval(interval)
+    setUserTurn(true)
+    setStartBtn(false)
    }
    }, 1000)
 
 }
 
+
+
   return (
    <>
-   <div className='flex flex-col'>
-   <h1 className='text-5xl text-center'>Color sequence</h1>
-   <Game active={active}/>
-   <button onClick={startSequence} className='start bg-blue-700'>{start}</button>
+   <div className='flex flex-col select-none'>
+    <p className='text-center text-2xl mb-2'>score : {score}</p>
+   <h1 className='text-5xl text-center'>{status}</h1>
+   <Game active={active}
+         setActive={setActive}
+         userTurn={userTurn}
+         seqArr={sequence}
+         userStep={userStep}
+         setUserStep={setUserStep} 
+         setStatus={setStatus}
+         score={score}
+         setScore={setScore}
+         setRestart={setRestart}
+         setUserTurn={setUserTurn} />
+   <button onClick={()=>{
+                         previewSequence();
+                         setUserStep(0)
+                         
+                        }} 
+           className='start bg-blue-700'
+           disabled={startBtn} >{start}</button>
    </div>
    </>
   )
