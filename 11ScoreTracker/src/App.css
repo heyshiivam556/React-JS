@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+span{
+    padding: 0 16px;
+}
