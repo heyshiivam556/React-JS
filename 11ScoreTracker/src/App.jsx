@@ -1,14 +1,15 @@
 import { Search } from "lucide-react";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
   
-
+const [match, setMatch] = useState([])
 
   return (
     <>
       <div>
-        <h1 className="text-center">Score Tracker</h1>
+        <h1 className="text-center">Luchi Kumari</h1>
         <div className="searchbar flex flex-row mt-4 mx-auto">
           <input
             type="text"
